@@ -18,7 +18,7 @@ def process(message):
     out_key = os.path.join(dst_prefix, f"{bname}_cog.tif")
     translator.process(
         src_path,
-        os.environ["MOSAIC_BUCKET"],
+        os.environ["COG_BUCKET"],
         out_key,
         message["profile_name"],
         message["profile_options"],

@@ -33,6 +33,7 @@ functions:
     environment:
       CPL_TMPDIR: /tmp
       CPL_VSIL_CURL_ALLOWED_EXTENSIONS: .tif
+      COG_BUCKET: ${opt:bucket}
       GDAL_CACHEMAX: 512
       GDAL_DATA: /var/task/share/gdal
       GDAL_DISABLE_READDIR_ON_OPEN: EMPTY_DIR
