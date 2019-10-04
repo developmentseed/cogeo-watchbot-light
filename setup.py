@@ -6,10 +6,8 @@ with open("README.md") as f:
     readme = f.read()
 
 inst_reqs = [
-    # "git+https://github.com/developmentseed/cogeo-mosaic",
     "rio-cogeo>=1.1.5",
     "rasterio[s3]>=1.0.28",
-    "watchbot_progress",
     "wget"
 ]
 extra_reqs = {"test": ["pytest", "pytest-cov"]}

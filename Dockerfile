@@ -5,7 +5,6 @@ WORKDIR /tmp
 ENV PACKAGE_PREFIX /tmp/python
 
 RUN pip install --upgrade pip
-RUN pip install cython==0.28
 
 ################################################################################
 #                            CREATE PACKAGE                                    #
@@ -14,7 +13,7 @@ COPY app app
 COPY setup.py setup.py
 COPY README.md README.md
 
-RUN pip3 install . git+https://github.com/developmentseed/cogeo-mosaic  --no-binary numpy,shapely,rasterio -t $PACKAGE_PREFIX -U
+RUN pip3 install . --no-binary numpy,rasterio -t $PACKAGE_PREFIX -U
 
 ################################################################################
 #                            REDUCE PACKAGE SIZE                               #
