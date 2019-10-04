@@ -26,7 +26,7 @@ package:
 
 functions:
   translator:
-    handler: app.watchbot_light.main
+    handler: app.handler.main
     memorySize: 3008
     timeout: 900
     ReservedConcurrentExecutions: 1000
@@ -40,7 +40,6 @@ functions:
       GDAL_HTTP_MULTIPLEX: YES
       GDAL_HTTP_VERSION: 2
       MAX_THREADS: 50
-      MOSAIC_BUCKET: ${opt:bucket}
       PROJ_LIB: /var/task/share/proj
       PYTHONWARNINGS: ignore
       VSI_CACHE: TRUE
