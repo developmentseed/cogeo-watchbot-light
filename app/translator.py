@@ -63,20 +63,23 @@ def process(
     out_key,
     profile="webp",
     profile_options={},
+    allow_remote_read=False,
     copy_valid_cog=False,
     **options,
 ):
     """Download, convert and upload."""
     url_info = urlparse(url.strip())
-    src_path = "/tmp/" + os.path.basename(url_info.path)
-
     if url_info.scheme not in ["http", "https", "s3"]:
         raise Exception(f"Unsuported scheme {url_info.scheme}")
 
-    if url_info.scheme.startswith("http"):
-        wget.download(url, src_path)
-    elif url_info.scheme == "s3":
-        _s3_download(url, src_path)
+    if allow_remote_read:
+        src_path = url
+    else:
+        src_path = "/tmp/" + os.path.basename(url_info.path)
+        if url_info.scheme.startswith("http"):
+            wget.download(url, src_path)
+        elif url_info.scheme == "s3":
+            _s3_download(url, src_path)
 
     uid = str(uuid.uuid4())
     dst_path = f"/tmp/{uid}.tif"

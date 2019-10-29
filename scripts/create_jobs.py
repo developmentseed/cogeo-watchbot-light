@@ -93,6 +93,18 @@ def sns_worker(messages, topic, subject=None):
     help="rio_cogeo.cogeo.cog_translate input options.",
 )
 @click.option(
+    "--allow-remote-read",
+    is_flag=True,
+    default=False,
+    help="Don't copy file locally and perform remote reads (default: False).",
+)
+@click.option(
+    "--copy-valid-cog",
+    is_flag=True,
+    default=False,
+    help="Perform pure copy if file is already a valid COG (default: False).",
+)
+@click.option(
     "--prefix",
     type=str,
     default="cogs",
@@ -104,7 +116,16 @@ def sns_worker(messages, topic, subject=None):
     required=True,
     help="SNS Topic",
 )
-def cli(sources, cogeo_profile, creation_options, options, prefix, topic):
+def cli(
+    sources,
+    cogeo_profile,
+    creation_options,
+    options,
+    allow_remote_read,
+    copy_valid_cog,
+    prefix,
+    topic
+):
     """
     Create cogeo-watchbot-light jobs.
 
@@ -127,6 +148,8 @@ def cli(sources, cogeo_profile, creation_options, options, prefix, topic):
             "profile_name": cogeo_profile,
             "profile_options": creation_options,
             "options": options,
+            "allow_remote_read": allow_remote_read,
+            "copy_valid_cog": copy_valid_cog,
         }
 
     messages = [_create_message(source) for source in sources]

@@ -14,8 +14,8 @@ extra_reqs = {"test": ["pytest", "pytest-cov"]}
 
 setup(
     name="app",
-    version="0.0.1",
-    description=u"Lambda Watchbot",
+    version="0.0.2",
+    description=u"cogeo watchbot",
     python_requires=">=3",
     keywords="AWS-Lambda Python",
     packages=find_packages(exclude=["ez_setup", "examples", "tests"]),
