@@ -141,16 +141,24 @@ def cli(
         --topic arn:aws:sns:us-east-1:{account}:cogeo-watchbot-light-production-WatchbotTopic
 
     """
+    if "indexes" in options.keys():
+        options["indexes"] = list(map(int, options["indexes"].split(",")))
+
     def _create_message(source):
-        return {
+        message = {
             "src_path": source,
             "dst_prefix": prefix,
             "profile_name": cogeo_profile,
             "profile_options": creation_options,
             "options": options,
-            "allow_remote_read": allow_remote_read,
-            "copy_valid_cog": copy_valid_cog,
         }
+        if allow_remote_read:
+            message.update(dict(allow_remote_read=True))
+
+        if copy_valid_cog:
+            message.update(dict(copy_valid_cog=True))
+
+        return message
 
     messages = [_create_message(source) for source in sources]
     parts = _chunks(messages, 50)

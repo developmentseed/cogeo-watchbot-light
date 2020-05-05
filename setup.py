@@ -2,14 +2,7 @@
 
 from setuptools import setup, find_packages
 
-with open("README.md") as f:
-    readme = f.read()
-
-inst_reqs = [
-    "rio-cogeo>=1.1.5",
-    "rasterio[s3]>=1.0.28",
-    "wget"
-]
+inst_reqs = ["rio-cogeo>=1.1.5", "rasterio[s3]>=1.0.28", "requests"]
 extra_reqs = {"test": ["pytest", "pytest-cov"]}
 
 setup(

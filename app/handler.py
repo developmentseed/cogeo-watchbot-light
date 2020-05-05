@@ -11,6 +11,8 @@ def process(message):
     if isinstance(message, str):
         message = json.loads(message)
 
+    print(message)
+
     src_path = message["src_path"]
     dst_prefix = message["dst_prefix"]
 
