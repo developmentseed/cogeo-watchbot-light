@@ -93,6 +93,14 @@ def sns_worker(messages, topic, subject=None):
     help="rio_cogeo.cogeo.cog_translate input options.",
 )
 @click.option(
+    "--config",
+    "config",
+    metavar="NAME=VALUE",
+    multiple=True,
+    callback=options._cb_key_val,
+    help="GDAL configuration options.",
+)
+@click.option(
     "--allow-remote-read",
     is_flag=True,
     default=False,
@@ -121,6 +129,7 @@ def cli(
     cogeo_profile,
     creation_options,
     options,
+    config,
     allow_remote_read,
     copy_valid_cog,
     prefix,
@@ -150,6 +159,7 @@ def cli(
             "dst_prefix": prefix,
             "profile_name": cogeo_profile,
             "profile_options": creation_options,
+            "config": config,
             "options": options,
         }
         if allow_remote_read:

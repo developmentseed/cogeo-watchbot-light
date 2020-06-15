@@ -9,14 +9,16 @@ provider:
   
   # Add Tags to resources
   stackTags:
-    project: labs
-    customer: devseed
+    Project: labs
+    Owner: vincents
+    Customer: devseed
   
   iamRoleStatements:
   -  Effect: "Allow"
      Action:
        - "*"
      Resource:
+       - "arn:aws:s3:::*"
        - "arn:aws:s3:::${opt:bucket}*"
 
   -  Effect: "Allow"
@@ -78,7 +80,7 @@ resources:
           deadLetterTargetArn: !GetAtt
             - WatchbotDeadLetterQueue
             - Arn
-          maxReceiveCount: 3
+          maxReceiveCount: 1
 
     # Create SQS Queue Policies
     snsWatchbotQueuePolicy:

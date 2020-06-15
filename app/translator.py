@@ -2,7 +2,6 @@
 
 from typing import Dict, Any, Union
 
-import os
 from io import BytesIO
 from urllib.parse import urlparse
 
@@ -50,6 +49,7 @@ def process(
     profile_options: Dict = {},
     allow_remote_read: bool = False,
     copy_valid_cog: bool = False,
+    config: Dict[str, Any] = {},
     **options: Any,
 ) -> bool:
     """Download, convert and upload."""
@@ -63,11 +63,14 @@ def process(
 
     src_path: Union[str, BytesIO] = url if allow_remote_read else _get(url)
 
-    config = dict(
-        GDAL_NUM_THREADS="ALL_CPUS",
-        GDAL_TIFF_INTERNAL_MASK=True,
-        GDAL_TIFF_OVR_BLOCKSIZE="128",
+    config.update(
+        {
+            "GDAL_NUM_THREADS": "ALL_CPUS",
+            "GDAL_TIFF_INTERNAL_MASK": "TRUE",
+            "GDAL_TIFF_OVR_BLOCKSIZE": "128",
+        }
     )
+
     output_profile = cog_profiles.get(profile)
     output_profile.update(dict(BIGTIFF="IF_SAFER"))
     output_profile.update(profile_options)
@@ -79,7 +82,7 @@ def process(
                 mem_dst.name,
                 output_profile,
                 config=config,
-                in_memory=True,  # Limit Memory usage (cannot use False, because of rio-cogeo bug)
+                in_memory=True,
                 quiet=True,
                 allow_intermediate_compression=True,  # Limit Disk usage
                 **options,

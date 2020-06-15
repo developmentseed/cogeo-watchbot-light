@@ -2,7 +2,7 @@
 
 from setuptools import setup, find_packages
 
-inst_reqs = ["rio-cogeo>=1.1.5", "rasterio[s3]>=1.0.28", "requests"]
+inst_reqs = ["rio-cogeo~=2.0a4", "rasterio[s3]~=1.1", "requests"]
 extra_reqs = {"test": ["pytest", "pytest-cov"]}
 
 setup(

@@ -26,6 +26,7 @@ def process(message):
         message["profile_options"],
         allow_remote_read=message.get("allow_remote_read", False),
         copy_valid_cog=message.get("copy_valid_cog", False),
+        config=message.get("config", {}),
         **message["options"],
     )
 
